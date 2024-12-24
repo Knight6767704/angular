@@ -1,0 +1,115 @@
+<div class="form-center">
+  <h2>Student Form</h2>
+  
+  <form (ngSubmit)="formSubmit(f)" #f="ngForm">
+    <label >First Name:</label>
+  <input type="text"  name="firstName" ngModel #firstName="ngModel" (change)="getValue(firstName)" [class.ng-invalid]="firstName.invalid&&firstName.touched" minlength="3" maxlength="10" required>
+  <div class="alert">
+    @if (firstName.invalid&&firstName.touched) {
+      @if (firstName.hasError('required')) {
+        <p>Firstname is required...</p>
+      }
+      @if (firstName.hasError('minlength')) {
+        <p>Firstname must be atleast 3 characters.</p>
+      }
+      @if (firstName.hasError('maxlength')) {
+        <p>Firstname cannot be more than 10 charcters long.</p>
+      }
+    }
+  </div>
+  <label >Last Name:</label>
+  <input type="text" name="lastName" ngModel #lastName="ngModel" (change)="getValue(lastName)" [class.ng-invalid]="lastName.invalid&&lastName.touched" minlength="3" maxlength="10" required>
+  <div class="alert">
+    @if (lastName.invalid&&lastName.touched) {
+      @if (lastName.hasError('required')) {
+        <p>Lastname is required...</p>
+      }
+      @if (lastName.hasError('minlength')) {
+        <p>Lastame must be atleast 3 characters.</p>
+      }
+      @if (lastName.hasError('maxlength')) {
+        <p>Lastname cannot be more than 10 charcters long.</p>
+      }
+    }
+  </div>
+  <br>
+  <label >Email:</label><br>
+  <input type="text"  name="email" ngModel #email="ngModel" [class.ng-invalid]="email.invalid&&email.touched" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" required >
+  <div class="alert">
+  @if (email.invalid&&email.touched) {
+    @if (email.hasError('required')) {
+      <p>Email is required...</p>
+    }
+    @if (email.hasError('pattern')) {
+      <p>Invalid Email Address</p>
+    }
+    
+  }
+</div>
+  <br>
+  <label >Address:</label><br>
+  <textarea  name="address" ngModel #address="ngModel" [class.ng-invalid]="address.invalid&&address.touched" required></textarea>
+  <div class="alert">
+    @if (address.invalid&&email.touched) {
+      @if (address.hasError('required')) {
+        <p>Address is required...</p>
+      }
+     
+      
+    }
+  </div>
+  <br>
+  <label >Phone Number:</label><br>
+  <input type="text"  name="phno" ngModel #phno="ngModel" [class.ng-invalid]="phno.invalid&&phno.touched" pattern="[6789][0-9]{9}" required >
+  <div class="alert">
+  @if (phno.invalid&&phno.touched) {
+    @if (phno.hasError('required')) {
+      <p>Phone Number is required...</p>
+    }
+    @if (phno.hasError('pattern')) {
+      <p>Invalid Phone Number</p>
+    }
+    
+  }
+</div>
+<br>
+<label >Password:</label><br>
+  <input type="password"  name="pass" ngModel #pass="ngModel" [class.ng-invalid]="pass.invalid&&pass.touched" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required >
+  <div class="alert">
+  @if (pass.invalid&&pass.touched) {
+    @if (pass.hasError('required')) {
+      <p>Password is required...</p>
+    }
+    @if (pass.hasError('pattern')) {
+      <p>Invalid Password. Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters</p>
+    }
+  }
+</div>
+
+  <br><br>
+  <button [disabled]="f.invalid">Submit</button>
+  </form>
+  <h2>Submitted Data</h2>
+  <table *ngIf="students.length > 0" border="1">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Phone Number</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of students">
+        <td>{{ student.firstName }}</td>
+        <td>{{ student.lastName }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.address }}</td>
+        <td>{{ student.phno }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>
